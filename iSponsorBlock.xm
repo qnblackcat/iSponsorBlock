@@ -269,8 +269,7 @@ NSString *modifiedTimeString;
      NSBundle *resourcesBundle = [NSBundle bundleWithPath:resourcesBundlePath];
     if(self.playerViewController.userSkipSegments.lastObject.endTime != -1) {
        [self.playerViewController.userSkipSegments addObject:[[SponsorSegment alloc] initWithStartTime:self.playerViewController.currentVideoMediaTime endTime:-1 category:nil UUID:nil]];
-       [self.sponsorStartedEndedButton setImage:[UIImage imageWithContentsOfFile:[resourcesBundle pathForResource:@"sponsorblockend-20@2x" ofType:@"png"]] forState:UIControlStateNormal];
-    }
+[self.sponsorStartedEndedButton setImage:[UIImage imageWithContentsOfFile:[resourcesBundle pathForResource:@"sponsorblockstart-20@2x" ofType:@"png"]] forState:UIControlStateNormal];    }
     else {
         self.playerViewController.userSkipSegments.lastObject.endTime = self.playerViewController.currentVideoMediaTime;
         if(self.playerViewController.userSkipSegments.lastObject.endTime != self.playerViewController.currentVideoMediaTime) {
