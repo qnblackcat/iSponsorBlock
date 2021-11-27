@@ -6,6 +6,7 @@
 #import <dlfcn.h>
 #import "MBProgressHUD.h"
 #import "SponsorSegment.h"
+#include <math.h>
 
 
 //prefs
@@ -158,6 +159,16 @@ NSMutableArray <NSString *> *kWhitelistedChannels;
 
 @interface YTPageStyleController
 +(NSInteger)pageStyle;
+@end
+
+//redefinition
+@interface YTInlinePlayerBarView ()
+@property (strong, nonatomic) NSMutableArray *sponsorMarkerViews;
+@property (strong, nonatomic) NSMutableArray *skipSegments;
+@property (strong, nonatomic) YTPlayerViewController *playerViewController;
+-(void)removeSponsorMarkers;
+-(void)maybeCreateMarkerViews;
+@property (nonatomic, assign) CGFloat totalTime;
 @end
 
 //Cercube
