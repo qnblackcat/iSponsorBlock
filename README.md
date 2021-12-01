@@ -1,4 +1,4 @@
-# Note: this is the jailed version of iSponsorBlock, used in uYou+ and Cercube+
+## Note: this is the jailed version of iSponsorBlock, used in uYou+ and Cercube+
 
 # iSponsorBlock
 
