@@ -1,6 +1,3 @@
-# Created by https://www.toptal.com/developers/gitignore/api/theos-tweak
-# Edit at https://www.toptal.com/developers/gitignore?templates=theos-tweak
-
 ### THEOS-Tweak ###
 ._*
 *.deb
@@ -9,8 +6,3 @@ _
 obj
 .theos
 .DS_Store
-
-### XCode stuff
-*.xcworkspace
-
-# End of https://www.toptal.com/developers/gitignore/api/theos-tweak
