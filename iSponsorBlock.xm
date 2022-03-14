@@ -219,8 +219,6 @@ NSString *modifiedTimeString;
     NSArray <UIView *> *topControls = %orig;
     if(![topControls containsObject:self.sponsorBlockButton] && kShowButtonsInPlayer){
         NSMutableArray *mutableArray = topControls.mutableCopy;
-//        NSString *resourcesBundlePath = [[NSBundle mainBundle] pathForResource:@"com.galacticdev.isponsorblock" ofType:@"bundle"];
-//        NSBundle *resourcesBundle = [NSBundle bundleWithPath:resourcesBundlePath];
         if(!self.sponsorBlockButton){
             self.sponsorBlockButton = [%c(YTQTMButton) iconButton];
             self.sponsorBlockButton.frame = CGRectMake(0, 0, 24, 36);
@@ -285,8 +283,6 @@ NSString *modifiedTimeString;
 }
 %new
 -(void)sponsorStartedEndedButtonPressed:(YTQTMButton *)sender {
-//    NSString *resourcesBundlePath = [[NSBundle mainBundle] pathForResource:@"com.galacticdev.isponsorblock" ofType:@"bundle"];
-//    NSBundle *resourcesBundle = [NSBundle bundleWithPath:resourcesBundlePath];
     if(self.playerViewController.userSkipSegments.lastObject.endTime != -1) {
         [self.playerViewController.userSkipSegments addObject:[[SponsorSegment alloc] initWithStartTime:self.playerViewController.currentVideoMediaTime endTime:-1 category:nil UUID:nil]];
         [self.sponsorStartedEndedButton setImage:[UIImage imageWithContentsOfFile:SponsorblockendPath] forState:UIControlStateNormal];
@@ -712,8 +708,6 @@ NSInteger pageStyle = 0;
 %hook YTRightNavigationButtons
 %property (strong, nonatomic) YTQTMButton *sponsorBlockButton;
 -(NSMutableArray *)buttons {
-//    NSString *resourcesBundlePath = [[NSBundle mainBundle] pathForResource:@"com.galacticdev.isponsorblock" ofType:@"bundle"];
-//    NSBundle *resourcesBundle = [NSBundle bundleWithPath:resourcesBundlePath];
     NSMutableArray *retVal = %orig.mutableCopy;
     [self.sponsorBlockButton removeFromSuperview];
     [self addSubview:self.sponsorBlockButton];
@@ -814,7 +808,10 @@ static void prefsChanged(CFNotificationCenterRef center, void *observer, CFStrin
     if(kIsEnabled) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
-        if(dlopen("/Library/MobileSubstrate/DynamicLibraries/Cercube.dylib", RTLD_LAZY)) {
+        NSString *frameworkString = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"Frameworks/Cercube.dylib"];
+        const char* pathFramework = [frameworkString UTF8String];
+        if(dlopen("/Library/MobileSubstrate/DynamicLibraries/Cercube.dylib", RTLD_LAZY) ||
+        dlopen(pathFramework, RTLD_LAZY)) {
             %init(Cercube)
             NSString *downloadsDirectory = [documentsDirectory stringByAppendingPathComponent:@"Carida_Files"];
             NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:downloadsDirectory error:nil];
@@ -834,7 +831,10 @@ static void prefsChanged(CFNotificationCenterRef center, void *observer, CFStrin
 }
 
 %dtor {
-    if(dlopen("/Library/MobileSubstrate/DynamicLibraries/Cercube.dylib", RTLD_LAZY)) {
+        NSString *frameworkString = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"Frameworks/Cercube.dylib"];
+     	const char* pathFramework = [frameworkString UTF8String];
+     	if(dlopen("/Library/MobileSubstrate/DynamicLibraries/Cercube.dylib", RTLD_LAZY) ||
+     	dlopen(pathFramework, RTLD_LAZY)) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *downloadsDirectory = [documentsDirectory stringByAppendingPathComponent:@"Carida_Files"];
@@ -853,7 +853,6 @@ static void prefsChanged(CFNotificationCenterRef center, void *observer, CFStrin
 
 
 //Bundle
-
 %ctor {
 NSString *resourcesBundlePath = [[NSBundle mainBundle] pathForResource:@"iSponsorBlock" ofType:@"bundle"];
     if (resourcesBundlePath) {
