@@ -6,6 +6,10 @@ A jailbreak tweak that implements the SponsorBlock API to skip sponsorships in y
 
 More info about SponsorBlock and the API used can be found [here](https://sponsor.ajay.app).
 
+# Building
+
+Requires [theos](https://theos.dev/) and [RemoteLog.h](https://github.com/Muirey03/RemoteLog) in `theos/include`.
+
 # Installation
 
 Add the following repository: https://galacticdev.me
