@@ -1,6 +1,8 @@
 #import "SponsorBlockSettingsController.h"
 #import "colorFunctions.h"
 
+static NSString *LogoSponsorBlockerPath;
+
 @implementation SponsorBlockTableCell
 -(void)colorPicker:(id)colorPicker didSelectColor:(UIColor *)color {
     self.colorWell.color = color;
@@ -62,7 +64,16 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:@"/var/mobile/Library/Application Support/iSponsorBlock/LogoSponsorBlocker128px.png"]];
+    NSString *resourcesBundlePath = [[NSBundle mainBundle] pathForResource:@"iSponsorBlock" ofType:@"bundle"];
+    if (resourcesBundlePath) {
+    NSBundle *resourcesBundle = [NSBundle bundleWithPath:resourcesBundlePath];
+    LogoSponsorBlockerPath = [resourcesBundle pathForResource:@"LogoSponsorBlocker128px" ofType:@"png"]; 
+    } else {
+    LogoSponsorBlockerPath = @"/Library/Application Support/iSponsorBlock.bundle/LogoSponsorBlocker128px.png";    
+    }
+ 
+    //NSString *pathToImage = [resourcesBundle pathForResource:@"LogoSponsorBlocker128px" ofType:@"png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:LogoSponsorBlockerPath]];;
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,0,0)];
     label.text = @"iSponsorBlock";
     label.font = [UIFont boldSystemFontOfSize:48];
