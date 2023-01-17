@@ -505,21 +505,21 @@ NSString *modifiedTimeString;
 %end
 
 
-// %hook YTPlayerView
-// //https://stackoverflow.com/questions/11770743/capturing-touches-on-a-subview-outside-the-frame-of-its-superview-using-hittest
-// - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-//     if (self.clipsToBounds || self.hidden || self.alpha == 0) {
-//         return nil;
-//     }
+%hook YTPlayerView
+//https://stackoverflow.com/questions/11770743/capturing-touches-on-a-subview-outside-the-frame-of-its-superview-using-hittest
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    if (self.clipsToBounds || self.hidden || self.alpha == 0) {
+        return nil;
+    }
     
-//     for (UIView *subview in self.subviews.reverseObjectEnumerator) {
-//         CGPoint subPoint = [subview convertPoint:point fromView:self];
-//         UIView *result = [subview hitTest:subPoint withEvent:event];
-//         if (result) return result;
-//     }
-//     return nil;
-// }
-// %end
+    for (UIView *subview in self.subviews.reverseObjectEnumerator) {
+        CGPoint subPoint = [subview convertPoint:point fromView:self];
+        UIView *result = [subview hitTest:subPoint withEvent:event];
+        if (result) return result;
+    }
+    return nil;
+}
+%end
 %end
 
 %group Cercube
